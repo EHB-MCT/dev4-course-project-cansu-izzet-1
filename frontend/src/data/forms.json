@@ -1,0 +1,82 @@
+[
+  {
+    "title": "log in",
+    "inputs": [
+      {
+        "label": "Username",
+        "type": "text",
+        "name": "username",
+        "id": "username",
+        "placeholder": "John"
+      },
+      {
+        "label": "Password",
+        "type": "password",
+        "name": "password",
+        "id": "password",
+        "placeholder": "********"
+      }
+    ],
+    "extra": true,
+    "extraText": "Don't have an account yet?",
+    "extraDirection": "/signin",
+    "extraDirectionText": "sign in"
+  },
+  {
+    "title": "sign in",
+    "inputs": [
+      {
+        "label": "Username",
+        "type": "text",
+        "name": "username",
+        "id": "username",
+        "placeholder": "John"
+      },
+      {
+        "label": "Email",
+        "type": "email",
+        "name": "email",
+        "id": "email",
+        "placeholder": "john@gmail.com"
+      },
+      {
+        "label": "Password",
+        "type": "password",
+        "name": "password",
+        "id": "password",
+        "placeholder": "********"
+      }
+    ],
+    "extra": true,
+    "extraText": "Already have an account?",
+    "extraDirection": "/",
+    "extraDirectionText": "log in"
+  },
+  {
+    "title": "test",
+    "inputs": [
+      {
+        "label": "Username",
+        "type": "text",
+        "name": "username",
+        "id": "username",
+        "placeholder": "John"
+      },
+      {
+        "label": "Email",
+        "type": "email",
+        "name": "email",
+        "id": "email",
+        "placeholder": "john@gmail.com"
+      },
+      {
+        "label": "Password",
+        "type": "password",
+        "name": "password",
+        "id": "password",
+        "placeholder": "********"
+      }
+    ],
+    "extra": false
+  }
+]

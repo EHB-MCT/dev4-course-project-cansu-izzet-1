@@ -1,23 +1,10 @@
+<script setup>
+import MyForm from "../components/MyForm.vue";
+import forms from "../data/forms.json";
+
+const form = forms.find((form) => form.title == "log in");
+</script>
+
 <template>
-  <form id="loginForm" class="form">
-    <h1>LOGIN</h1>
-    <div class="formInputsContainer">
-      <div class="formInputContainers">
-        <label for="username">Username</label>
-        <input type="text" id="username" placeholder="John" />
-      </div>
-      <div class="formInputContainers">
-        <label for="username">Password</label>
-        <input type="password" id="password" placeholder="*******" />
-      </div>
-    </div>
-    <div class="formButtonContainer">
-      <button type="submit">SUBMIT</button>
-      <p>
-        Don't have an account yet?<router-link to="/signin"
-          >SIGN IN</router-link
-        >
-      </p>
-    </div>
-  </form>
+  <MyForm :form="form" />
 </template>
