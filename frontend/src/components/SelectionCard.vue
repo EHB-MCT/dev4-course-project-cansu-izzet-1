@@ -6,7 +6,7 @@ const { selection } = defineProps(["selection"]);
   <router-link :to="selection.direction">
     <section>
       <h2>{{ selection.title.toUpperCase() }}</h2>
-      <div>
+      <div class="selectionCardImageContainer">
         <img :src="selection.image" />
       </div>
     </section>
@@ -32,7 +32,7 @@ section {
   text-decoration: none;
 }
 
-div {
+.selectionCardImageContainer {
   width: 100%;
   display: flex;
   justify-content: center;
