@@ -1,0 +1,12 @@
+[
+  {
+    "title": "sessions",
+    "image": "src/assets/images/sessions.png",
+    "direction": "/adminSessions"
+  },
+  {
+    "title": "statistics",
+    "image": "src/assets/images/statistics.png",
+    "direction": "/"
+  }
+]
