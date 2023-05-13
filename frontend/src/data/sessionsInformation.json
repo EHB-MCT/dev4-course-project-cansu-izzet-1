@@ -1,0 +1,15 @@
+[
+  {
+    "information": "adminQuestionnaire",
+    "text": "Questionnaire",
+    "buttons": [
+      { "text": "EDIT", "type": "edit" },
+      { "text": "DELETE", "type": "delete" }
+    ]
+  },
+  {
+    "information": "adminNoQuestionnaire",
+    "text": "No questionnaire has been created for this session",
+    "buttons": [{ "text": "CREATE", "type": "create" }]
+  }
+]

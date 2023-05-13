@@ -4,7 +4,7 @@ const { form } = defineProps(["form"]);
 <template>
   <form>
     <h1>{{ form.title.toUpperCase() }}</h1>
-    <div id="inputsContainer">
+    <div v-if="form.inputs[0].type == 'text'" id="inputsContainer">
       <div v-for="input in form.inputs">
         <label :for="input.id">{{ input.label }}</label>
         <input
@@ -14,6 +14,18 @@ const { form } = defineProps(["form"]);
           :placeholder="input.placeholder"
           required
         />
+      </div>
+    </div>
+    <div v-else class="checkBoxContainer">
+      <div v-for="input in form.inputs">
+        <input
+          :type="input.type"
+          :name="input.name"
+          :id="input.id"
+          :placeholder="input.placeholder"
+          required
+        />
+        <label :for="input.id">{{ input.label }}</label>
       </div>
     </div>
     <div id="submitContainer">
@@ -66,7 +78,8 @@ form {
   width: 450px;
   display: flex;
   flex-direction: column;
-  row-gap: 65px;
+  justify-content: space-between;
+  align-items: flex-start;
   border-radius: 60px;
 }
 
@@ -124,5 +137,27 @@ a {
   font-weight: 700;
   text-decoration: none;
   font-size: 19px;
+}
+
+.checkBoxContainer {
+  /* background-color: red; */
+  width: 100%;
+  height: 160px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  overflow-y: scroll;
+  gap: 10px;
+  padding-right: 10px;
+}
+
+.checkBoxContainer div {
+  width: 100%;
+  background-color: #0d2b29;
+  border-radius: 50px;
+  padding: 5px 20px;
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
 }
 </style>

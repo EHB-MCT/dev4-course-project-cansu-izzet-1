@@ -3,10 +3,12 @@ const { session } = defineProps(["session"]);
 </script>
 
 <template>
-  <div class="adminSessionCardContainer">
-    <p>{{ session.patient }}</p>
-    <p>{{ session.data }}</p>
-  </div>
+  <router-link :to="`/adminSessions/${session.id}`">
+    <div class="adminSessionCardContainer">
+      <p>{{ session.patient }}</p>
+      <p>{{ session.data }}</p>
+    </div>
+  </router-link>
 </template>
 
 <style>

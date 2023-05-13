@@ -6,5 +6,19 @@ const form = forms.find((form) => form.title == "sign in");
 </script>
 
 <template>
-  <MyForm :form="form" />
+  <main id="signinViewMain">
+    <MyForm :form="form" />
+  </main>
 </template>
+
+<style>
+#signinViewMain {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+#signinViewMain form {
+  height: 650px;
+}
+</style>
