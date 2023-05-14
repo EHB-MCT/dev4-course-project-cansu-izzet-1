@@ -14,6 +14,10 @@ const newQuestionnaireForm = forms.find(
   (form) => form.title == "create questionnaire"
 );
 
+const editQuestionnaireForm = forms.find(
+  (form) => form.title == "edit questionnaire"
+);
+
 const newQuestionForm = forms.find((form) => form.title == "create question");
 
 const route = useRoute();
@@ -34,14 +38,24 @@ let adminNoQuestionnaireInformation = sessionsInformation.find(
     sessionInformation.information == "adminNoQuestionnaire"
 );
 
-const showComponent = ref(false);
-console.log(showComponent.value);
+const showCreate = ref(false);
+const showEdit = ref(false);
+
 function handleButtonClick(button) {
-  console.log("Button clicked:", button);
   if (button.type == "create") {
-    console.log("create it is");
-    showComponent.value = true;
-    console.log(showComponent.value);
+    showCreate.value = true;
+  } else if (button.type == "edit") {
+    showEdit.value = true;
+  } else if (button.type == "delete") {
+    if (
+      confirm(
+        "Are you sure you want to delete the questionnaire? This action cannot be undone."
+      )
+    ) {
+      console.log("deleted");
+    } else {
+      console.log("canceled");
+    }
   }
 }
 </script>
@@ -60,8 +74,13 @@ function handleButtonClick(button) {
       v-else="questionnaire"
       :sessionInformation="adminNoQuestionnaireInformation"
     />
-    <div id="adminSessionViewFormContainer" v-if="showComponent">
+    <div class="adminSessionViewFormContainer" v-if="showCreate">
       <MyForm :form="newQuestionnaireForm" />
+      <MyForm :form="newQuestionForm" />
+    </div>
+
+    <div class="adminSessionViewFormContainer" v-if="showEdit">
+      <MyForm :form="editQuestionnaireForm" />
       <MyForm :form="newQuestionForm" />
     </div>
   </main>
@@ -76,7 +95,7 @@ function handleButtonClick(button) {
   row-gap: 30px;
 }
 
-#adminSessionViewFormContainer {
+.adminSessionViewFormContainer {
   display: grid;
   grid-template-columns: 1.5fr 1fr;
   column-gap: 30px;
@@ -84,7 +103,7 @@ function handleButtonClick(button) {
   height: 100%;
 }
 
-#adminSessionViewFormContainer form {
+.adminSessionViewFormContainer form {
   height: 100%;
   width: 100%;
 }

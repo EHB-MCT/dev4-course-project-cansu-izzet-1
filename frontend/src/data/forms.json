@@ -171,6 +171,124 @@
     "extra": false
   },
   {
+    "title": "edit questionnaire",
+    "inputs": [
+      {
+        "label": "This is a question?",
+        "type": "checkbox",
+        "name": "question",
+        "value": "1",
+        "id": "1"
+      },
+      {
+        "label": "This is a question?",
+        "type": "checkbox",
+        "name": "question",
+        "value": "1",
+        "id": "1"
+      },
+      {
+        "label": "This is a question?",
+        "type": "checkbox",
+        "name": "question",
+        "value": "1",
+        "id": "1"
+      },
+      {
+        "label": "This is a question?",
+        "type": "checkbox",
+        "name": "question",
+        "value": "1",
+        "id": "1"
+      },
+      {
+        "label": "This is a question?",
+        "type": "checkbox",
+        "name": "question",
+        "value": "1",
+        "id": "1"
+      },
+      {
+        "label": "This is a question?",
+        "type": "checkbox",
+        "name": "question",
+        "value": "1",
+        "id": "1"
+      },
+      {
+        "label": "This is a question?",
+        "type": "checkbox",
+        "name": "question",
+        "value": "1",
+        "id": "1"
+      },
+      {
+        "label": "This is a question?",
+        "type": "checkbox",
+        "name": "question",
+        "value": "1",
+        "id": "1"
+      },
+      {
+        "label": "This is a question?",
+        "type": "checkbox",
+        "name": "question",
+        "value": "1",
+        "id": "1"
+      },
+      {
+        "label": "This is a question?",
+        "type": "checkbox",
+        "name": "question",
+        "value": "1",
+        "id": "1"
+      },
+      {
+        "label": "This is a question?",
+        "type": "checkbox",
+        "name": "question",
+        "value": "1",
+        "id": "1"
+      },
+      {
+        "label": "This is a question?",
+        "type": "checkbox",
+        "name": "question",
+        "value": "1",
+        "id": "1"
+      },
+      {
+        "label": "This is a question?",
+        "type": "checkbox",
+        "name": "question",
+        "value": "1",
+        "id": "1"
+      },
+      {
+        "label": "This is a question?",
+        "type": "checkbox",
+        "name": "question",
+        "value": "1",
+        "id": "1"
+      },
+      {
+        "label": "This is a question?",
+        "type": "checkbox",
+        "name": "question",
+        "value": "1",
+        "id": "1"
+      },
+      {
+        "label": "This is a question?",
+        "type": "checkbox",
+        "name": "question",
+        "value": "1",
+        "id": "1"
+      }
+    ],
+    "extra": false
+  },
+  {
     "title": "create question",
     "inputs": [
       {
@@ -179,6 +297,25 @@
         "name": "questionDescription",
         "id": "createQuestionDescription",
         "placeholder": "This is a question?"
+      }
+    ],
+    "extra": false
+  },
+  {
+    "title": "new session",
+    "inputs": [
+      {
+        "label": "Patient username",
+        "type": "text",
+        "name": "newSessionUsername",
+        "id": "newSessionUsername",
+        "placeholder": "John"
+      },
+      {
+        "label": "Date",
+        "type": "date",
+        "name": "newSessionDate",
+        "id": "newSessionDate"
       }
     ],
     "extra": false

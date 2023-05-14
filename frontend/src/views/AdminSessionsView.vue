@@ -3,17 +3,21 @@ import AdminSessionCard from "../components/AdminSessionCard.vue";
 import MyNavigation from "../components/MyNavigation.vue";
 import sessions from "../data/sessions.json";
 import Breadcrumbs from "../components/Breadcrumbs.vue";
+import MyForm from "../components/MyForm.vue";
+import forms from "../data/forms.json";
+
+const newSessionForm = forms.find((form) => form.title == "new session");
 </script>
 
 <template>
   <MyNavigation />
   <main id="adminSessionsViewMain">
     <Breadcrumbs />
-    <div id="adminSessionsContainer">
-      <div id="adminSessionsViewNewSessionContainer">
-        <p>NEW SESSION</p>
+    <div id="adminSessionsViewWrapper">
+      <div id="adminSessionsContainer">
+        <AdminSessionCard v-for="session in sessions" :session="session" />
       </div>
-      <AdminSessionCard v-for="session in sessions" :session="session" />
+      <MyForm :form="newSessionForm" />
     </div>
   </main>
 </template>
@@ -27,26 +31,24 @@ import Breadcrumbs from "../components/Breadcrumbs.vue";
   row-gap: 30px;
 }
 
+#adminSessionsViewWrapper {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  column-gap: 30px;
+  width: 100%;
+  height: 560px;
+}
+
+#adminSessionsViewWrapper form {
+  width: 100%;
+}
+
 #adminSessionsContainer {
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 20px;
   overflow-y: scroll;
   padding-right: 10px;
-}
-
-#adminSessionsViewNewSessionContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  background-color: #123e3b;
-  border-radius: 50px;
-}
-
-#adminSessionsViewNewSessionContainer p {
-  font-weight: 700;
-  font-size: 22px;
 }
 </style>

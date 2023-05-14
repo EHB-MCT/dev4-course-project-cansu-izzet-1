@@ -47,13 +47,18 @@ const { form } = defineProps(["form"]);
 <style>
 input[type="text"],
 input[type="password"],
-input[type="email"] {
+input[type="email"],
+input[type="date"] {
   padding: 7px 20px;
   border: none;
   border-radius: 37px;
   font-size: 20px;
   color: #0d2b29;
   width: 100%;
+}
+
+input[type="date"] {
+  color: #0d2b29;
 }
 
 input::-webkit-input-placeholder {

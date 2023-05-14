@@ -13,7 +13,8 @@ const { session } = defineProps(["session"]);
 
 <style>
 .adminSessionCardContainer {
-  background-color: #fff;
+  /* background-color: #fff; */
+  background-color: #123e3b;
   border-radius: 50px;
   width: 100%;
   display: flex;
@@ -22,7 +23,9 @@ const { session } = defineProps(["session"]);
 }
 
 .adminSessionCardContainer p {
-  color: #123e3b;
+  /* color: #123e3b; */
+  color: #ede3c8;
   font-size: 22px;
+  font-weight: 700;
 }
 </style>
