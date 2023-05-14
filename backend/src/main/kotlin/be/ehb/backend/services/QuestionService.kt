@@ -1,6 +1,6 @@
 package be.ehb.backend.services
 
-import be.ehb.backend.DTO.QuestionDto
+import be.ehb.backend.dto.QuestionDto
 import be.ehb.backend.models.Question
 import be.ehb.backend.repositories.QuestionRepository
 import org.springframework.beans.factory.annotation.Autowired

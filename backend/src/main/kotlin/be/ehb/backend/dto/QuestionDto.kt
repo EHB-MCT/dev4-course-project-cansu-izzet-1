@@ -1,4 +1,4 @@
-package be.ehb.backend.DTO
+package be.ehb.backend.dto
 
 data class QuestionDto(
     val id: Long,
