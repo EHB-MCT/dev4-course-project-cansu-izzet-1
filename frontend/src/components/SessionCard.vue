@@ -1,9 +1,9 @@
 <script setup>
-const { session } = defineProps(["session"]);
+const { session, baseURL } = defineProps(["session", "baseURL"]);
 </script>
 
 <template>
-  <router-link :to="`/adminSessions/${session.id}`">
+  <router-link :to="`${baseURL.url}/${session.id}`">
     <div class="adminSessionCardContainer">
       <p>{{ session.patient }}</p>
       <p>{{ session.data }}</p>
@@ -13,7 +13,6 @@ const { session } = defineProps(["session"]);
 
 <style>
 .adminSessionCardContainer {
-  /* background-color: #fff; */
   background-color: #123e3b;
   border-radius: 50px;
   width: 100%;

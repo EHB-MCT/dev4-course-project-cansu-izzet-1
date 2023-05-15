@@ -11,5 +11,10 @@
     "information": "adminNoQuestionnaire",
     "text": "No questionnaire has been created for this session",
     "buttons": [{ "text": "CREATE", "type": "create" }]
+  },
+  {
+    "information": "questionnaire",
+    "text": "Questionnaire",
+    "buttons": [{ "text": "FILL", "type": "fill" }]
   }
 ]

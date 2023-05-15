@@ -3,10 +3,6 @@ import SessionCard from "../components/SessionCard.vue";
 import MyNavigation from "../components/MyNavigation.vue";
 import sessions from "../data/sessions.json";
 import Breadcrumbs from "../components/Breadcrumbs.vue";
-import MyForm from "../components/MyForm.vue";
-import forms from "../data/forms.json";
-
-const newSessionForm = forms.find((form) => form.title == "new session");
 </script>
 
 <template>
@@ -18,10 +14,9 @@ const newSessionForm = forms.find((form) => form.title == "new session");
         <SessionCard
           v-for="session in sessions"
           :session="session"
-          :baseURL="{ url: '/adminSessions' }"
+          :baseURL="{ url: '/sessions' }"
         />
       </div>
-      <MyForm :form="newSessionForm" />
     </div>
   </main>
 </template>
