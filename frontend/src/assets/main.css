@@ -1,0 +1,44 @@
+@import "./base.css";
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+#app {
+  font-family: "Lato", sans-serif;
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: #0d2b29;
+}
+
+button {
+  background-color: #0d2b29;
+  color: #ede3c8;
+  border-radius: 32px;
+  border: none;
+  padding: 15px 60px;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  border-left: 1px solid #e6ecf8;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #123e3b;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #808e7f;
+  border-radius: 5px;
+}
