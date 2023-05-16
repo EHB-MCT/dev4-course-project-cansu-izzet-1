@@ -7,6 +7,6 @@
   {
     "title": "statistics",
     "image": "src/assets/images/statistics.png",
-    "direction": "/"
+    "direction": "/adminStatistics"
   }
 ]

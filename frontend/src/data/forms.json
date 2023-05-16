@@ -17,6 +17,9 @@
         "placeholder": "********"
       }
     ],
+    "url": "http://localhost:8080/users/login",
+    "successMessage": "Congratulations! You have successfully logged in to your account. Welcome back!",
+    "errorMessage": "Sorry, the username or password you entered is incorrect. Please check your credentials and try again.",
     "extra": true,
     "extraText": "Don't have an account yet?",
     "extraDirection": "/signin",
@@ -47,6 +50,9 @@
         "placeholder": "********"
       }
     ],
+    "url": "http://localhost:8080/users",
+    "successMessage": "Congratulations! Your account has been successfully created.",
+    "errorMessage": "Sorry, the username or email you entered is already taken. Please try again with a different username or email.",
     "extra": true,
     "extraText": "Already have an account?",
     "extraDirection": "/",

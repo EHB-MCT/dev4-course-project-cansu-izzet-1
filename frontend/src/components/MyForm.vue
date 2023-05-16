@@ -1,10 +1,70 @@
 <script setup>
+import { computed, reactive } from "vue";
+import { useRouter } from "vue-router";
+
+import { notify } from "@kyvg/vue3-notification";
+
+const router = useRouter();
 const { form } = defineProps(["form"]);
+
+const isTextInput = computed(() => {
+  return form.inputs.length > 0 && form.inputs[0].type === "text";
+});
+
+function updateSessionStorage(role, accessToken) {
+  sessionStorage.setItem("role", role);
+  sessionStorage.setItem("accessToken", accessToken);
+}
+
+const formData = reactive({});
+const submitForm = async () => {
+  const formFields = { ...formData };
+  const response = await fetch(form.url, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formFields),
+  });
+  const responseBody = await response.json();
+  if (response.ok) {
+    switch (form.title) {
+      case "log in":
+        if (responseBody.role == "Admin") {
+          updateSessionStorage(responseBody.role, responseBody.accessToken);
+          router.push("/adminSelection");
+          notify({
+            type: "success",
+            title: form.successMessage,
+          });
+        } else if (responseBody.role == "User") {
+          updateSessionStorage(responseBody.role, responseBody.accessToken);
+          router.push("/sessions");
+        }
+        break;
+      case "sign in":
+        router.push("/");
+        notify({
+          type: "success",
+          title: form.successMessage,
+        });
+        break;
+      default:
+        console.log("todo");
+    }
+  } else {
+    notify({
+      type: "error",
+      title: form.errorMessage,
+    });
+  }
+};
 </script>
 <template>
-  <form>
+  <form @submit.prevent="submitForm">
     <h1>{{ form.title.toUpperCase() }}</h1>
-    <div v-if="form.inputs[0].type == 'text'" id="inputsContainer">
+    <div v-if="isTextInput" id="inputsContainer">
       <div v-for="input in form.inputs">
         <label :for="input.id">{{ input.label }}</label>
         <input
@@ -12,6 +72,7 @@ const { form } = defineProps(["form"]);
           :name="input.name"
           :id="input.id"
           :placeholder="input.placeholder"
+          v-model="formData[input.name]"
           required
         />
       </div>
@@ -23,19 +84,16 @@ const { form } = defineProps(["form"]);
           :name="input.name"
           :id="input.id"
           :placeholder="input.placeholder"
+          v-model="formData[input.name]"
           required
         />
         <label :for="input.id">{{ input.label }}</label>
       </div>
     </div>
     <div id="submitContainer">
-      <router-link to="/adminSelection">
-        <button type="submit">SUBMIT</button>
-      </router-link>
+      <button type="submit">SUBMIT</button>
       <div v-if="form.extra">
-        <p>
-          {{ form.extraText }}
-        </p>
+        <p>{{ form.extraText }}</p>
         <router-link :to="form.extraDirection">{{
           form.extraDirectionText.toUpperCase()
         }}</router-link>

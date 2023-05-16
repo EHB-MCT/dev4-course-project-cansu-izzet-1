@@ -1,10 +1,27 @@
-<script setup></script>
+<script setup>
+import { useRouter } from "vue-router";
+import { notify } from "@kyvg/vue3-notification";
+
+const router = useRouter();
+
+function handleLogout() {
+  sessionStorage.removeItem("role");
+  sessionStorage.removeItem("accessToken");
+  router.push("/");
+  notify({
+    type: "success",
+    title: "You have been logged out. Thank you for using our platform!",
+  });
+}
+</script>
 <template>
   <nav>
     <div>
       <router-link to="/adminSessions">SESSIONS</router-link>
       <router-link to="/adminStatistics">STATISTICS</router-link>
-      <span class="material-icons logoutBtn"> logout </span>
+      <span class="material-icons logoutBtn" @click="handleLogout">
+        logout
+      </span>
     </div>
   </nav>
 </template>
@@ -35,5 +52,6 @@ nav div a {
 .logoutBtn {
   color: #ede3c8;
   font-size: 30px;
+  cursor: pointer;
 }
 </style>
