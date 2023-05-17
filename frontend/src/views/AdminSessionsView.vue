@@ -5,13 +5,15 @@ import sessions from "../data/sessions.json";
 import Breadcrumbs from "../components/Breadcrumbs.vue";
 import MyForm from "../components/MyForm.vue";
 import forms from "../data/forms.json";
+import ErrorContainer from "../components/ErrorContainer.vue";
 
 const newSessionForm = forms.find((form) => form.title == "new session");
+const userRole = sessionStorage.getItem("role");
 </script>
 
 <template>
-  <MyNavigation />
-  <main id="adminSessionsViewMain">
+  <MyNavigation v-if="userRole === 'Admin'" navigationType="adminNav" />
+  <main id="adminSessionsViewMain" v-if="userRole === 'Admin'">
     <Breadcrumbs />
     <div id="adminSessionsViewWrapper">
       <div id="adminSessionsContainer">
@@ -24,6 +26,17 @@ const newSessionForm = forms.find((form) => form.title == "new session");
       <MyForm :form="newSessionForm" />
     </div>
   </main>
+  <ErrorContainer
+    v-else-if="userRole === 'User'"
+    message="Regrettably, your current access privileges do not permit you to view the contents of this page."
+    :has-button="false"
+  />
+
+  <ErrorContainer
+    v-else
+    message="Please note that you are currently not authenticated or logged into the system."
+    :has-button="true"
+  />
 </template>
 
 <style>

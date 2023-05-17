@@ -3,11 +3,14 @@ import SessionCard from "../components/SessionCard.vue";
 import MyNavigation from "../components/MyNavigation.vue";
 import sessions from "../data/sessions.json";
 import Breadcrumbs from "../components/Breadcrumbs.vue";
+import ErrorContainer from "../components/ErrorContainer.vue";
+
+const userRole = sessionStorage.getItem("role");
 </script>
 
 <template>
-  <MyNavigation />
-  <main id="adminSessionsViewMain">
+  <MyNavigation v-if="userRole === 'User'" navigationType="userNav" />
+  <main id="adminSessionsViewMain" v-if="userRole === 'User'">
     <Breadcrumbs />
     <div id="adminSessionsViewWrapper">
       <div id="adminSessionsContainer">
@@ -19,6 +22,17 @@ import Breadcrumbs from "../components/Breadcrumbs.vue";
       </div>
     </div>
   </main>
+  <ErrorContainer
+    v-else-if="userRole === 'Admin'"
+    message="Regrettably, your current access privileges do not permit you to view the contents of this page."
+    :has-button="false"
+  />
+
+  <ErrorContainer
+    v-else
+    message="Please note that you are currently not authenticated or logged into the system."
+    :has-button="true"
+  />
 </template>
 
 <style>

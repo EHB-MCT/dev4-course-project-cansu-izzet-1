@@ -8,7 +8,9 @@ import sessions from "../data/sessions.json";
 import sessionsInformation from "../data/sessionsInformation.json";
 import Breadcrumbs from "../components/Breadcrumbs.vue";
 import QuestionnaireCard from "../components/QuestionnaireCard.vue";
+import ErrorContainer from "../components/ErrorContainer.vue";
 
+const userRole = sessionStorage.getItem("role");
 const route = useRoute();
 const { id } = route.params;
 
@@ -33,8 +35,8 @@ function handleButtonClick(button) {
 </script>
 
 <template>
-  <MyNavigation />
-  <main id="adminSessionViewMain">
+  <MyNavigation v-if="userRole === 'User'" navigationType="userNav" />
+  <main id="adminSessionViewMain" v-if="userRole === 'User'">
     <Breadcrumbs direction="/sessions" :session="session" />
     <SessionInformationCard
       v-if="questionnaire"
@@ -45,6 +47,17 @@ function handleButtonClick(button) {
       <QuestionnaireCard :questionnaire="questionnaire" />
     </div>
   </main>
+  <ErrorContainer
+    v-else-if="userRole === 'Admin'"
+    message="Regrettably, your current access privileges do not permit you to view the contents of this page."
+    :has-button="false"
+  />
+
+  <ErrorContainer
+    v-else
+    message="Please note that you are currently not authenticated or logged into the system."
+    :has-button="true"
+  />
 </template>
 
 <style>

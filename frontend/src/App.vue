@@ -6,7 +6,7 @@ import { RouterView } from "vue-router";
   <notifications
     position="bottom left"
     classes="notificationClass"
-    speed="1000"
+    speed="300"
     width="550px"
   />
   <RouterView></RouterView>
@@ -22,6 +22,7 @@ import { RouterView } from "vue-router";
   font-size: 16px;
   font-weight: 400;
   border-radius: 50px;
+  z-index: 9999;
 }
 
 .error {

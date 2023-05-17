@@ -41,6 +41,10 @@ const submitForm = async () => {
         } else if (responseBody.role == "User") {
           updateSessionStorage(responseBody.role, responseBody.accessToken);
           router.push("/sessions");
+          notify({
+            type: "success",
+            title: form.successMessage,
+          });
         }
         break;
       case "sign in":

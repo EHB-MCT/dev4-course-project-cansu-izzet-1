@@ -1,6 +1,7 @@
 <script setup>
 import SelectionCard from "../components/SelectionCard.vue";
 import selections from "../data/selections.json";
+import ErrorContainer from "../components/ErrorContainer.vue";
 
 const userRole = sessionStorage.getItem("role");
 </script>
@@ -9,13 +10,17 @@ const userRole = sessionStorage.getItem("role");
   <main id="adminSelectionViewMain" v-if="userRole === 'Admin'">
     <SelectionCard v-for="selection in selections" :selection="selection" />
   </main>
-  <div class="errorContainers" v-else-if="userRole === 'User'">
-    <p>You do not have permission to view this page.</p>
-  </div>
-  <div class="errorContainers" v-else>
-    <p>You are not logged in</p>
-    <RouterLink to="/"><button class="errorLoginBtn">Login</button></RouterLink>
-  </div>
+  <ErrorContainer
+    v-else-if="userRole === 'User'"
+    message="Regrettably, your current access privileges do not permit you to view the contents of this page."
+    :has-button="false"
+  />
+
+  <ErrorContainer
+    v-else
+    message="Please note that you are currently not authenticated or logged into the system."
+    :has-button="true"
+  />
 </template>
 
 <style>
@@ -26,17 +31,5 @@ const userRole = sessionStorage.getItem("role");
   justify-content: space-between;
   align-items: center;
   column-gap: 5%;
-}
-
-.errorContainers {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  row-gap: 15px;
-}
-
-.errorLoginBtn {
-  background-color: #123e3b;
 }
 </style>
