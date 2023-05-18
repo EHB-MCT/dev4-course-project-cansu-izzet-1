@@ -1,7 +1,7 @@
 <script setup>
 import { computed, reactive } from "vue";
 import { useRouter } from "vue-router";
-
+import { onMounted } from "vue";
 import { notify } from "@kyvg/vue3-notification";
 
 const router = useRouter();
@@ -19,6 +19,7 @@ function updateSessionStorage(role, accessToken) {
 const formData = reactive({});
 const submitForm = async () => {
   const formFields = { ...formData };
+  console.log(formFields);
   const response = await fetch(form.url, {
     method: "POST",
     headers: {
@@ -53,6 +54,16 @@ const submitForm = async () => {
           type: "success",
           title: form.successMessage,
         });
+        break;
+      case "new session":
+        console.log("new session form");
+        notify({
+          type: "success",
+          title: form.successMessage,
+        });
+        setTimeout(() => {
+          location.reload();
+        }, 1500);
         break;
       default:
         console.log("todo");

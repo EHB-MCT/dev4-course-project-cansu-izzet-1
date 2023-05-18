@@ -1,14 +1,28 @@
 <script setup>
 import SessionCard from "../components/SessionCard.vue";
 import MyNavigation from "../components/MyNavigation.vue";
-import sessions from "../data/sessions.json";
 import Breadcrumbs from "../components/Breadcrumbs.vue";
 import MyForm from "../components/MyForm.vue";
 import forms from "../data/forms.json";
 import ErrorContainer from "../components/ErrorContainer.vue";
+import { ref } from "vue";
 
 const newSessionForm = forms.find((form) => form.title == "new session");
 const userRole = sessionStorage.getItem("role");
+const userAccessToken = sessionStorage.getItem("accessToken");
+
+let sessions = ref([]);
+
+fetch("http://localhost:8080/sessions", {
+  method: "GET",
+  headers: {
+    Authorization: userAccessToken,
+  },
+})
+  .then((response) => response.json())
+  .then((result) => {
+    sessions.value = result;
+  });
 </script>
 
 <template>
@@ -18,7 +32,7 @@ const userRole = sessionStorage.getItem("role");
     <div id="adminSessionsViewWrapper">
       <div id="adminSessionsContainer">
         <SessionCard
-          v-for="session in sessions"
+          v-for="session in sessions.slice().reverse()"
           :session="session"
           :baseURL="{ url: '/adminSessions' }"
         />
@@ -64,6 +78,7 @@ const userRole = sessionStorage.getItem("role");
   width: 100%;
   display: grid;
   grid-template-columns: 1fr;
+  grid-template-rows: repeat(5, max-content);
   gap: 20px;
   overflow-y: scroll;
   padding-right: 10px;

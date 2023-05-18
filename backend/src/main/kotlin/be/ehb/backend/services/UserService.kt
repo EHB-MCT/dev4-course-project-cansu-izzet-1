@@ -52,4 +52,13 @@ class UserService {
             return false
         }
     }
+
+    fun getUserIdFromAccessToken(token: String): Long? {
+        val u = userRepo.findByAccessToken(token)
+        if(u != null) {
+            return u.id
+        } else {
+            return null
+        }
+    }
 }

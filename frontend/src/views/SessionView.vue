@@ -4,13 +4,14 @@ import { useRoute } from "vue-router";
 import MyNavigation from "../components/MyNavigation.vue";
 import SessionInformationCard from "../components/SessionInformationCard.vue";
 import questionnaires from "../data/questionnaires.json";
-import sessions from "../data/sessions.json";
 import sessionsInformation from "../data/sessionsInformation.json";
 import Breadcrumbs from "../components/Breadcrumbs.vue";
 import QuestionnaireCard from "../components/QuestionnaireCard.vue";
 import ErrorContainer from "../components/ErrorContainer.vue";
 
 const userRole = sessionStorage.getItem("role");
+const userAccessToken = sessionStorage.getItem("accessToken");
+
 const route = useRoute();
 const { id } = route.params;
 
@@ -18,12 +19,13 @@ let questionnaireInformation = sessionsInformation.find(
   (sessionInformation) => sessionInformation.information == "questionnaire"
 );
 
+let noQuestionnaireInformation = sessionsInformation.find(
+  (sessionInformation) => sessionInformation.information == "noQuestionnaire"
+);
+
 const questionnaire = questionnaires.find(
   (questionnaire) => questionnaire.sessionId == id
 );
-console.log(questionnaire);
-
-const session = sessions.find((session) => session.id == id);
 
 const showFill = ref(false);
 
@@ -32,6 +34,18 @@ function handleButtonClick(button) {
     showFill.value = true;
   }
 }
+
+let session = ref([]);
+fetch(`http://localhost:8080/sessions/${id}`, {
+  method: "GET",
+  headers: {
+    Authorization: userAccessToken,
+  },
+})
+  .then((response) => response.json())
+  .then((result) => {
+    session.value = result;
+  });
 </script>
 
 <template>
@@ -42,6 +56,11 @@ function handleButtonClick(button) {
       v-if="questionnaire"
       @button-clicked="handleButtonClick"
       :sessionInformation="questionnaireInformation"
+    />
+    <SessionInformationCard
+      v-else="questionnaire"
+      @button-clicked="handleButtonClick"
+      :sessionInformation="noQuestionnaireInformation"
     />
     <div v-if="showFill" id="questionnaireFormContainer">
       <QuestionnaireCard :questionnaire="questionnaire" />

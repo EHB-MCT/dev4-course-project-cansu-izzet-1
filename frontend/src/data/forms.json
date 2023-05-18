@@ -313,17 +313,20 @@
       {
         "label": "Patient username",
         "type": "text",
-        "name": "newSessionUsername",
+        "name": "username",
         "id": "newSessionUsername",
         "placeholder": "John"
       },
       {
         "label": "Date",
         "type": "date",
-        "name": "newSessionDate",
+        "name": "date",
         "id": "newSessionDate"
       }
     ],
+    "url": "http://localhost:8080/sessions",
+    "successMessage": "Success! The session has been created for the specified user.",
+    "errorMessage": "Error! The username specified could not be found. Please ensure you have entered the correct username and try again.",
     "extra": false
   }
 ]

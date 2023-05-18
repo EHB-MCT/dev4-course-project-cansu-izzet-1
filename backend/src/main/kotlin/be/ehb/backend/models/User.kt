@@ -17,6 +17,9 @@ class User (
     var role: String
 
 ) {
+    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL])
+    var sessions: MutableList<Session> = mutableListOf()
+
     var accessToken = ""
     var expirationDate = System.currentTimeMillis()
 }

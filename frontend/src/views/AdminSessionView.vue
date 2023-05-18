@@ -4,7 +4,6 @@ import { useRoute } from "vue-router";
 import MyNavigation from "../components/MyNavigation.vue";
 import SessionInformationCard from "../components/SessionInformationCard.vue";
 import questionnaires from "../data/questionnaires.json";
-import sessions from "../data/sessions.json";
 import sessionsInformation from "../data/sessionsInformation.json";
 import Breadcrumbs from "../components/Breadcrumbs.vue";
 import MyForm from "../components/MyForm.vue";
@@ -12,6 +11,7 @@ import forms from "../data/forms.json";
 import ErrorContainer from "../components/ErrorContainer.vue";
 
 const userRole = sessionStorage.getItem("role");
+const userAccessToken = sessionStorage.getItem("accessToken");
 
 const newQuestionnaireForm = forms.find(
   (form) => form.title == "create questionnaire"
@@ -25,8 +25,6 @@ const newQuestionForm = forms.find((form) => form.title == "create question");
 
 const route = useRoute();
 const { id } = route.params;
-
-const session = sessions.find((session) => session.id == id);
 
 const questionnaire = questionnaires.find(
   (questionnaire) => questionnaire.sessionId == id
@@ -61,6 +59,18 @@ function handleButtonClick(button) {
     }
   }
 }
+
+let session = ref([]);
+fetch(`http://localhost:8080/sessions/${id}`, {
+  method: "GET",
+  headers: {
+    Authorization: userAccessToken,
+  },
+})
+  .then((response) => response.json())
+  .then((result) => {
+    session.value = result;
+  });
 </script>
 
 <template>

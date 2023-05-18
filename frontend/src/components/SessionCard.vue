@@ -5,8 +5,8 @@ const { session, baseURL } = defineProps(["session", "baseURL"]);
 <template>
   <router-link :to="`${baseURL.url}/${session.id}`">
     <div class="adminSessionCardContainer">
-      <p>{{ session.patient }}</p>
-      <p>{{ session.data }}</p>
+      <p>{{ session.username }}</p>
+      <p>{{ session.date }}</p>
     </div>
   </router-link>
 </template>

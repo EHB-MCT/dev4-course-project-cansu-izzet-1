@@ -6,7 +6,7 @@ const { direction, session } = defineProps(["direction", "session"]);
   <div v-if="direction" id="breadcrumbsContainer">
     <router-link :to="direction">Sessions</router-link>
     <span class="material-icons"> chevron_right </span>
-    <p>{{ session.patient }} - {{ session.data }}</p>
+    <p>{{ session.username }} - {{ session.date }}</p>
   </div>
   <div v-else="direction" id="breadcrumbsContainer">
     <p>Sessions</p>

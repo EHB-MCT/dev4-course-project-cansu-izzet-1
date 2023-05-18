@@ -31,14 +31,15 @@ const { questionnaire } = defineProps(["questionnaire"]);
 <style>
 #questionnaireForm {
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   display: flex;
   flex-direction: column;
-  row-gap: 20px;
+  row-gap: 50px;
 }
 
 #questionsContainer {
-  height: 250px;
+  /* height: 250px; */
+  max-height: 250px;
   width: 100%;
   overflow-y: scroll;
   display: flex;

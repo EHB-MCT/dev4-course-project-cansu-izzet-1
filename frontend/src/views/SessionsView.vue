@@ -1,11 +1,25 @@
 <script setup>
 import SessionCard from "../components/SessionCard.vue";
 import MyNavigation from "../components/MyNavigation.vue";
-import sessions from "../data/sessions.json";
 import Breadcrumbs from "../components/Breadcrumbs.vue";
 import ErrorContainer from "../components/ErrorContainer.vue";
+import { ref } from "vue";
 
 const userRole = sessionStorage.getItem("role");
+const userAccessToken = sessionStorage.getItem("accessToken");
+
+let sessions = ref([]);
+
+fetch("http://localhost:8080/sessions/userSessions", {
+  method: "GET",
+  headers: {
+    Authorization: userAccessToken,
+  },
+})
+  .then((response) => response.json())
+  .then((result) => {
+    sessions.value = result;
+  });
 </script>
 
 <template>

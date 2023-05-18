@@ -16,5 +16,10 @@
     "information": "questionnaire",
     "text": "Questionnaire",
     "buttons": [{ "text": "FILL", "type": "fill" }]
+  },
+  {
+    "information": "noQuestionnaire",
+    "text": "No questionnaire has been created for this session",
+    "buttons": []
   }
 ]
