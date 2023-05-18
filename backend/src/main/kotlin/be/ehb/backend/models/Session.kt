@@ -1,7 +1,6 @@
 package be.ehb.backend.models
 
 import jakarta.persistence.*
-import java.util.*
 
 @Entity
 @Table(name = "session")
@@ -11,6 +10,6 @@ class Session(
     var date: String,
 
     @ManyToOne
-    var user: User
+    var user: User,
 )
 

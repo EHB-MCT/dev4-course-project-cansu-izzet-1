@@ -7,8 +7,6 @@ import jakarta.persistence.*
 class Question (
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0,
-
-    @Column(name = "description")
     var description: String,
 ) {
 }

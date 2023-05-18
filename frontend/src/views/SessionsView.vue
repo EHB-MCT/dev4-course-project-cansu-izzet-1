@@ -29,7 +29,7 @@ fetch("http://localhost:8080/sessions/userSessions", {
     <div id="adminSessionsViewWrapper">
       <div id="adminSessionsContainer">
         <SessionCard
-          v-for="session in sessions"
+          v-for="session in sessions.slice().reverse()"
           :session="session"
           :baseURL="{ url: '/sessions' }"
         />

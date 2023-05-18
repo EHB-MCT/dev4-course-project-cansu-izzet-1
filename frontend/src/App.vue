@@ -23,6 +23,7 @@ import { RouterView } from "vue-router";
   font-weight: 400;
   border-radius: 50px;
   z-index: 9999;
+  border: 1px solid #ede3c8;
 }
 
 .error {

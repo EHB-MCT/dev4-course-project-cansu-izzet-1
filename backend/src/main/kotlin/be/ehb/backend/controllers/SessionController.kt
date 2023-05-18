@@ -1,7 +1,6 @@
 package be.ehb.backend.controllers
 
-import be.ehb.backend.dto.SessionRequestDto
-import be.ehb.backend.dto.SessionResponseDto
+import be.ehb.backend.dto.SessionDto
 import be.ehb.backend.services.SessionService
 import be.ehb.backend.services.UserService
 import org.springframework.beans.factory.annotation.Autowired
@@ -23,7 +22,7 @@ class SessionController {
     lateinit var userService: UserService
 
     @GetMapping
-    fun getAllSessions(@RequestHeader(HttpHeaders.AUTHORIZATION) token: String): List<SessionResponseDto> {
+    fun getAllSessions(@RequestHeader(HttpHeaders.AUTHORIZATION) token: String): List<SessionDto> {
         if(userService.isAuthenticated(token)) {
             return sessionService.getAllSessions()
         } else {
@@ -32,7 +31,7 @@ class SessionController {
     }
 
     @GetMapping("/userSessions")
-    fun getAllSessionsFromUser(@RequestHeader(HttpHeaders.AUTHORIZATION) token: String): List<SessionResponseDto> {
+    fun getAllSessionsFromUser(@RequestHeader(HttpHeaders.AUTHORIZATION) token: String): List<SessionDto> {
         if(userService.isAuthenticated(token)) {
             var userId = userService.getUserIdFromAccessToken(token)
             return sessionService.getAllSessionsFromUserId(userId)
@@ -45,9 +44,8 @@ class SessionController {
     fun getSessionById(
         @PathVariable id: Long,
         @RequestHeader(HttpHeaders.AUTHORIZATION) token: String
-    ): SessionResponseDto? {
+    ): SessionDto? {
         if (userService.isAuthenticated(token)) {
-            println(id)
             return sessionService.getSessionById(id)
         } else {
             throw ResponseStatusException(HttpStatus.UNAUTHORIZED, "Authentication token not present or accepted")
@@ -55,7 +53,7 @@ class SessionController {
     }
 
     @PostMapping
-    fun saveSession(@RequestBody sessionData: SessionRequestDto, model: Model) : SessionResponseDto? {
+    fun saveSession(@RequestBody sessionData: SessionDto, model: Model) : SessionDto? {
         return sessionService.saveSession(sessionData)
     }
 }

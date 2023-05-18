@@ -3,32 +3,65 @@ import { ref } from "vue";
 import { useRoute } from "vue-router";
 import MyNavigation from "../components/MyNavigation.vue";
 import SessionInformationCard from "../components/SessionInformationCard.vue";
-import questionnaires from "../data/questionnaires.json";
 import sessionsInformation from "../data/sessionsInformation.json";
 import Breadcrumbs from "../components/Breadcrumbs.vue";
 import MyForm from "../components/MyForm.vue";
 import forms from "../data/forms.json";
 import ErrorContainer from "../components/ErrorContainer.vue";
+import { notify } from "@kyvg/vue3-notification";
 
 const userRole = sessionStorage.getItem("role");
 const userAccessToken = sessionStorage.getItem("accessToken");
 
+const route = useRoute();
+const { id } = route.params;
+
+let hasQuestionnaire = ref(null);
+let questionnaire = ref([]);
+
+let questions = ref([]);
 const newQuestionnaireForm = forms.find(
   (form) => form.title == "create questionnaire"
 );
-
 const editQuestionnaireForm = forms.find(
   (form) => form.title == "edit questionnaire"
 );
 
+newQuestionnaireForm.sessionId = id;
+
+fetch(`http://localhost:8080/questions`, {
+  method: "GET",
+  headers: {
+    Authorization: userAccessToken,
+  },
+})
+  .then((response) => response.json())
+  .then((result) => {
+    questions.value = result;
+    console.log(questions.value);
+  })
+  .then(() => {
+    if (newQuestionnaireForm.inputs <= 0 && editQuestionnaireForm.inputs <= 0) {
+      questions.value.forEach((question) => {
+        newQuestionnaireForm.inputs.push({
+          label: question.description,
+          type: "checkbox",
+          name: "questions",
+          id: question.id,
+        });
+        editQuestionnaireForm.inputs.push({
+          label: question.description,
+          type: "checkbox",
+          name: "questions",
+          id: question.id,
+        });
+      });
+    } else {
+      return;
+    }
+  });
+
 const newQuestionForm = forms.find((form) => form.title == "create question");
-
-const route = useRoute();
-const { id } = route.params;
-
-const questionnaire = questionnaires.find(
-  (questionnaire) => questionnaire.sessionId == id
-);
 
 let adminQuestionnaireInformation = sessionsInformation.find(
   (sessionInformation) => sessionInformation.information == "adminQuestionnaire"
@@ -46,6 +79,7 @@ function handleButtonClick(button) {
   if (button.type == "create") {
     showCreate.value = true;
   } else if (button.type == "edit") {
+    editQuestionnaireForm.questionnaireId = questionnaire.value.id;
     showEdit.value = true;
   } else if (button.type == "delete") {
     if (
@@ -53,9 +87,26 @@ function handleButtonClick(button) {
         "Are you sure you want to delete the questionnaire? This action cannot be undone."
       )
     ) {
-      console.log("deleted");
+      fetch(`http://localhost:8080/questionnaires/${questionnaire.value.id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: userAccessToken,
+          "Content-Type": "application/json",
+        },
+      }).then(() => {
+        notify({
+          type: "error",
+          title: "The questionnaire has been successfully deleted.",
+        });
+        setTimeout(() => {
+          location.reload();
+        }, 2000);
+      });
     } else {
-      console.log("canceled");
+      notify({
+        type: "success",
+        title: "The questionnaire has not been deleted.",
+      });
     }
   }
 }
@@ -70,6 +121,22 @@ fetch(`http://localhost:8080/sessions/${id}`, {
   .then((response) => response.json())
   .then((result) => {
     session.value = result;
+  })
+  .then(() => {
+    fetch(`http://localhost:8080/questionnaires/${session.value.id}`, {
+      method: "GET",
+      headers: {
+        Authorization: userAccessToken,
+      },
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        questionnaire.value = result;
+        hasQuestionnaire.value = true;
+      })
+      .catch(() => {
+        hasQuestionnaire = false;
+      });
   });
 </script>
 
@@ -79,12 +146,12 @@ fetch(`http://localhost:8080/sessions/${id}`, {
     <Breadcrumbs direction="/adminSessions" :session="session" />
     <SessionInformationCard
       @button-clicked="handleButtonClick"
-      v-if="questionnaire"
+      v-if="hasQuestionnaire"
       :sessionInformation="adminQuestionnaireInformation"
     />
     <SessionInformationCard
       @button-clicked="handleButtonClick"
-      v-else="questionnaire"
+      v-else="hasQuestionnaire"
       :sessionInformation="adminNoQuestionnaireInformation"
     />
     <div class="adminSessionViewFormContainer" v-if="showCreate">

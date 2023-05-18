@@ -3,7 +3,6 @@ import { ref } from "vue";
 import { useRoute } from "vue-router";
 import MyNavigation from "../components/MyNavigation.vue";
 import SessionInformationCard from "../components/SessionInformationCard.vue";
-import questionnaires from "../data/questionnaires.json";
 import sessionsInformation from "../data/sessionsInformation.json";
 import Breadcrumbs from "../components/Breadcrumbs.vue";
 import QuestionnaireCard from "../components/QuestionnaireCard.vue";
@@ -23,9 +22,8 @@ let noQuestionnaireInformation = sessionsInformation.find(
   (sessionInformation) => sessionInformation.information == "noQuestionnaire"
 );
 
-const questionnaire = questionnaires.find(
-  (questionnaire) => questionnaire.sessionId == id
-);
+let hasQuestionnaire = ref(null);
+let questionnaire = ref([]);
 
 const showFill = ref(false);
 
@@ -45,6 +43,22 @@ fetch(`http://localhost:8080/sessions/${id}`, {
   .then((response) => response.json())
   .then((result) => {
     session.value = result;
+  })
+  .then(() => {
+    fetch(`http://localhost:8080/questionnaires/${session.value.id}`, {
+      method: "GET",
+      headers: {
+        Authorization: userAccessToken,
+      },
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        questionnaire.value = result;
+        hasQuestionnaire.value = true;
+      })
+      .catch(() => {
+        hasQuestionnaire = false;
+      });
   });
 </script>
 
@@ -53,12 +67,12 @@ fetch(`http://localhost:8080/sessions/${id}`, {
   <main id="adminSessionViewMain" v-if="userRole === 'User'">
     <Breadcrumbs direction="/sessions" :session="session" />
     <SessionInformationCard
-      v-if="questionnaire"
+      v-if="hasQuestionnaire"
       @button-clicked="handleButtonClick"
       :sessionInformation="questionnaireInformation"
     />
     <SessionInformationCard
-      v-else="questionnaire"
+      v-else="hasQuestionnaire"
       @button-clicked="handleButtonClick"
       :sessionInformation="noQuestionnaireInformation"
     />

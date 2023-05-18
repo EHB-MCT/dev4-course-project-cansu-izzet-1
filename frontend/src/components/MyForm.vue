@@ -1,11 +1,12 @@
 <script setup>
 import { computed, reactive } from "vue";
 import { useRouter } from "vue-router";
-import { onMounted } from "vue";
 import { notify } from "@kyvg/vue3-notification";
 
 const router = useRouter();
 const { form } = defineProps(["form"]);
+
+const userAccessToken = sessionStorage.getItem("accessToken");
 
 const isTextInput = computed(() => {
   return form.inputs.length > 0 && form.inputs[0].type === "text";
@@ -18,11 +19,41 @@ function updateSessionStorage(role, accessToken) {
 
 const formData = reactive({});
 const submitForm = async () => {
-  const formFields = { ...formData };
+  let formFields;
+
+  if (isTextInput.value) {
+    formFields = { ...formData };
+  } else if (form.method === "PUT") {
+    formFields = {
+      questionIds: [],
+    };
+  } else {
+    formFields = {
+      sessionId: form.sessionId,
+      questionIds: [],
+    };
+  }
+
+  if (!isTextInput.value) {
+    const checkboxValues = [];
+    for (const input of form.inputs) {
+      if (formData[input.id]) {
+        checkboxValues.push(input.id);
+      }
+    }
+    formFields.questionIds = checkboxValues;
+  }
   console.log(formFields);
-  const response = await fetch(form.url, {
-    method: "POST",
+
+  let url = form.url;
+  if (form.method === "PUT") {
+    url = form.url + "/" + form.questionnaireId;
+  }
+
+  const response = await fetch(url, {
+    method: form.method,
     headers: {
+      Authorization: userAccessToken,
       Accept: "application/json",
       "Content-Type": "application/json",
     },
@@ -56,7 +87,6 @@ const submitForm = async () => {
         });
         break;
       case "new session":
-        console.log("new session form");
         notify({
           type: "success",
           title: form.successMessage,
@@ -64,6 +94,33 @@ const submitForm = async () => {
         setTimeout(() => {
           location.reload();
         }, 1500);
+        break;
+      case "create questionnaire":
+        notify({
+          type: "success",
+          title: form.successMessage,
+        });
+        setTimeout(() => {
+          location.reload();
+        }, 2000);
+        break;
+      case "create question":
+        notify({
+          type: "success",
+          title: form.successMessage,
+        });
+        setTimeout(() => {
+          location.reload();
+        }, 2000);
+        break;
+      case "edit questionnaire":
+        notify({
+          type: "success",
+          title: form.successMessage,
+        });
+        setTimeout(() => {
+          location.reload();
+        }, 2000);
         break;
       default:
         console.log("todo");
@@ -99,8 +156,7 @@ const submitForm = async () => {
           :name="input.name"
           :id="input.id"
           :placeholder="input.placeholder"
-          v-model="formData[input.name]"
-          required
+          v-model="formData[input.id]"
         />
         <label :for="input.id">{{ input.label }}</label>
       </div>

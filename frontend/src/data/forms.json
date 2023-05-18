@@ -17,6 +17,7 @@
         "placeholder": "********"
       }
     ],
+    "method": "POST",
     "url": "http://localhost:8080/users/login",
     "successMessage": "Congratulations! You have successfully logged in to your account. Welcome back!",
     "errorMessage": "Sorry, the username or password you entered is incorrect. Please check your credentials and try again.",
@@ -50,6 +51,7 @@
         "placeholder": "********"
       }
     ],
+    "method": "POST",
     "url": "http://localhost:8080/users",
     "successMessage": "Congratulations! Your account has been successfully created.",
     "errorMessage": "Sorry, the username or email you entered is already taken. Please try again with a different username or email.",
@@ -60,238 +62,22 @@
   },
   {
     "title": "create questionnaire",
-    "inputs": [
-      {
-        "label": "This is a question?",
-        "type": "checkbox",
-        "name": "question",
-        "value": "1",
-        "id": "1"
-      },
-      {
-        "label": "This is a question?",
-        "type": "checkbox",
-        "name": "question",
-        "value": "1",
-        "id": "1"
-      },
-      {
-        "label": "This is a question?",
-        "type": "checkbox",
-        "name": "question",
-        "value": "1",
-        "id": "1"
-      },
-      {
-        "label": "This is a question?",
-        "type": "checkbox",
-        "name": "question",
-        "value": "1",
-        "id": "1"
-      },
-      {
-        "label": "This is a question?",
-        "type": "checkbox",
-        "name": "question",
-        "value": "1",
-        "id": "1"
-      },
-      {
-        "label": "This is a question?",
-        "type": "checkbox",
-        "name": "question",
-        "value": "1",
-        "id": "1"
-      },
-      {
-        "label": "This is a question?",
-        "type": "checkbox",
-        "name": "question",
-        "value": "1",
-        "id": "1"
-      },
-      {
-        "label": "This is a question?",
-        "type": "checkbox",
-        "name": "question",
-        "value": "1",
-        "id": "1"
-      },
-      {
-        "label": "This is a question?",
-        "type": "checkbox",
-        "name": "question",
-        "value": "1",
-        "id": "1"
-      },
-      {
-        "label": "This is a question?",
-        "type": "checkbox",
-        "name": "question",
-        "value": "1",
-        "id": "1"
-      },
-      {
-        "label": "This is a question?",
-        "type": "checkbox",
-        "name": "question",
-        "value": "1",
-        "id": "1"
-      },
-      {
-        "label": "This is a question?",
-        "type": "checkbox",
-        "name": "question",
-        "value": "1",
-        "id": "1"
-      },
-      {
-        "label": "This is a question?",
-        "type": "checkbox",
-        "name": "question",
-        "value": "1",
-        "id": "1"
-      },
-      {
-        "label": "This is a question?",
-        "type": "checkbox",
-        "name": "question",
-        "value": "1",
-        "id": "1"
-      },
-      {
-        "label": "This is a question?",
-        "type": "checkbox",
-        "name": "question",
-        "value": "1",
-        "id": "1"
-      },
-      {
-        "label": "This is a question?",
-        "type": "checkbox",
-        "name": "question",
-        "value": "1",
-        "id": "1"
-      }
-    ],
+    "sessionId": 0,
+    "inputs": [],
+    "url": "http://localhost:8080/questionnaires",
+    "method": "POST",
+    "successMessage": "The questionnaire has been successfully created.",
+    "errorMessage": "We regret to inform you that an error occurred while creating the questionnaire.",
     "extra": false
   },
   {
     "title": "edit questionnaire",
-    "inputs": [
-      {
-        "label": "This is a question?",
-        "type": "checkbox",
-        "name": "question",
-        "value": "1",
-        "id": "1"
-      },
-      {
-        "label": "This is a question?",
-        "type": "checkbox",
-        "name": "question",
-        "value": "1",
-        "id": "1"
-      },
-      {
-        "label": "This is a question?",
-        "type": "checkbox",
-        "name": "question",
-        "value": "1",
-        "id": "1"
-      },
-      {
-        "label": "This is a question?",
-        "type": "checkbox",
-        "name": "question",
-        "value": "1",
-        "id": "1"
-      },
-      {
-        "label": "This is a question?",
-        "type": "checkbox",
-        "name": "question",
-        "value": "1",
-        "id": "1"
-      },
-      {
-        "label": "This is a question?",
-        "type": "checkbox",
-        "name": "question",
-        "value": "1",
-        "id": "1"
-      },
-      {
-        "label": "This is a question?",
-        "type": "checkbox",
-        "name": "question",
-        "value": "1",
-        "id": "1"
-      },
-      {
-        "label": "This is a question?",
-        "type": "checkbox",
-        "name": "question",
-        "value": "1",
-        "id": "1"
-      },
-      {
-        "label": "This is a question?",
-        "type": "checkbox",
-        "name": "question",
-        "value": "1",
-        "id": "1"
-      },
-      {
-        "label": "This is a question?",
-        "type": "checkbox",
-        "name": "question",
-        "value": "1",
-        "id": "1"
-      },
-      {
-        "label": "This is a question?",
-        "type": "checkbox",
-        "name": "question",
-        "value": "1",
-        "id": "1"
-      },
-      {
-        "label": "This is a question?",
-        "type": "checkbox",
-        "name": "question",
-        "value": "1",
-        "id": "1"
-      },
-      {
-        "label": "This is a question?",
-        "type": "checkbox",
-        "name": "question",
-        "value": "1",
-        "id": "1"
-      },
-      {
-        "label": "This is a question?",
-        "type": "checkbox",
-        "name": "question",
-        "value": "1",
-        "id": "1"
-      },
-      {
-        "label": "This is a question?",
-        "type": "checkbox",
-        "name": "question",
-        "value": "1",
-        "id": "1"
-      },
-      {
-        "label": "This is a question?",
-        "type": "checkbox",
-        "name": "question",
-        "value": "1",
-        "id": "1"
-      }
-    ],
+    "questionnaireId": 0,
+    "inputs": [],
+    "method": "PUT",
+    "url": "http://localhost:8080/questionnaires",
+    "successMessage": "The questionnaire has been successfully edited.",
+    "errorMessage": "We regret to inform you that an error occurred while editing the questionnaire.",
     "extra": false
   },
   {
@@ -300,11 +86,15 @@
       {
         "label": "Description",
         "type": "text",
-        "name": "questionDescription",
-        "id": "createQuestionDescription",
+        "name": "description",
+        "id": "description",
         "placeholder": "This is a question?"
       }
     ],
+    "method": "POST",
+    "url": "http://localhost:8080/questions",
+    "successMessage": "The question has been successfully created.",
+    "errorMessage": "An error occurred while creating the question.",
     "extra": false
   },
   {
@@ -324,6 +114,7 @@
         "id": "newSessionDate"
       }
     ],
+    "method": "POST",
     "url": "http://localhost:8080/sessions",
     "successMessage": "Success! The session has been created for the specified user.",
     "errorMessage": "Error! The username specified could not be found. Please ensure you have entered the correct username and try again.",
