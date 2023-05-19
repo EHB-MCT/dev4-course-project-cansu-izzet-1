@@ -1,17 +1,63 @@
 <script setup>
+import { reactive } from "vue";
+import { notify } from "@kyvg/vue3-notification";
+import { useRouter } from "vue-router";
 const { questionnaire } = defineProps(["questionnaire"]);
+
+const router = useRouter();
+
+const formData = reactive({});
+const submitForm = async () => {
+  let data = {
+    questionnaireId: questionnaire.id,
+    answers: [],
+  };
+  for (const element in formData) {
+    data.answers.push({
+      questionName: formData[element].description,
+      questionScore: formData[element].score,
+    });
+  }
+
+  const response = await fetch("http://localhost:8080/responses", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+  if (response.ok) {
+    router.push("/sessions");
+    notify({
+      type: "success",
+      title: "The questionnaire has been successfully filled",
+    });
+  } else {
+    console.log("boku yedin izzet");
+  }
+};
+
+const handleScoreChange = (questionId, score) => {
+  formData[questionId] = {
+    score,
+    description: questionnaire.questions.find((q) => q.id === questionId)
+      .description,
+  };
+};
 </script>
 <template>
-  <form id="questionnaireForm">
+  <form id="questionnaireForm" @submit.prevent="submitForm">
     <div id="questionsContainer">
       <div
         v-for="question in questionnaire.questions"
+        :key="question.id"
         class="questionContainer"
       >
         <p>
           {{ question.description }}
         </p>
-        <select>
+        <select @change="handleScoreChange(question.id, $event.target.value)">
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -28,6 +74,7 @@ const { questionnaire } = defineProps(["questionnaire"]);
     <button type="submit">SUBMIT</button>
   </form>
 </template>
+
 <style>
 #questionnaireForm {
   width: 100%;

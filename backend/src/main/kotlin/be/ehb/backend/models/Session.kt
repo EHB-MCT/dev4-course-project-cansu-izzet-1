@@ -11,5 +11,6 @@ class Session(
 
     @ManyToOne
     var user: User,
-)
+){
 
+}

@@ -1,3 +1,10 @@
+<template>
+  <div class="statisticCardContainer">
+    <p>Questionnaire Id: {{ response.questionnaireId }}</p>
+    <Bar :data="myData" :options="data.options" />
+  </div>
+</template>
+
 <script lang="ts">
 import {
   Chart as ChartJS,
@@ -9,6 +16,7 @@ import {
   LinearScale,
 } from "chart.js";
 import { Bar } from "vue-chartjs";
+import { reactive } from "vue";
 
 ChartJS.defaults.color = "#fff";
 ChartJS.defaults.backgroundColor = "rgba(237, 227, 200, 0.5)";
@@ -23,54 +31,41 @@ ChartJS.register(
   Legend
 );
 
-export default {
-  name: "App",
-  components: {
-    Bar,
-  },
-  data() {
-    return {
-      data: {
-        labels: [
-          ["How much apes", "are there in the", "jungle?"],
-          ["How much apes", "are there in the", "jungle?"],
-          ["This is a question?", "This is a question?"],
-        ],
-        datasets: [{ data: [5, 8, 7] }],
+export const data = reactive({
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: false,
       },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: false,
-          },
-          tooltip: {
-            callbacks: {
-              title: (context) => {
-                return context[0].label.replaceAll(",", " ");
-              },
-            },
-          },
-        },
-        scales: {
-          y: {
-            min: 0,
-            max: 10,
+      tooltip: {
+        callbacks: {
+          title: (context) => {
+            return context[0].label.replaceAll(",", " ");
           },
         },
       },
-    };
+    },
+    scales: {
+      y: {
+        min: 0,
+        max: 10,
+      },
+    },
   },
-};
+});
 </script>
 
-<template>
-  <div class="statisticCardContainer">
-    <p>John - 12/03/2020</p>
-    <Bar :data="data" :options="options" />
-  </div>
-</template>
+<script setup lang="ts">
+const { response } = defineProps(["response"]);
+
+let myData = {
+  labels: response.answers.map((answer) => answer.questionName),
+  datasets: [{ data: response.answers.map((answer) => answer.questionScore) }],
+};
+console.log(myData);
+</script>
 
 <style>
 .statisticCardContainer {

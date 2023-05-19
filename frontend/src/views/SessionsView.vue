@@ -24,7 +24,7 @@ fetch("http://localhost:8080/sessions/userSessions", {
 
 <template>
   <MyNavigation v-if="userRole === 'User'" navigationType="userNav" />
-  <main id="adminSessionsViewMain" v-if="userRole === 'User'">
+  <main id="sessionsViewMain" v-if="userRole === 'User'">
     <Breadcrumbs />
     <div id="adminSessionsViewWrapper">
       <div id="adminSessionsContainer">
@@ -50,7 +50,7 @@ fetch("http://localhost:8080/sessions/userSessions", {
 </template>
 
 <style>
-#adminSessionsViewMain {
+#sessionsViewMain {
   width: 80%;
   display: grid;
   grid-template-rows: auto auto 1fr;

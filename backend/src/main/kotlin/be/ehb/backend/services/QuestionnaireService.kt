@@ -23,23 +23,15 @@ class QuestionnaireService {
     @Autowired
     lateinit var sessionRepository: SessionRepository
 
-    /*fun getQuestionnaireById(id: Long): QuestionnaireDto? {
-        if (id == null) {
-            throw IllegalArgumentException("Questionnaire ID must not be null.")
+    fun getQuestionnaireBySessionId(sessionId: Long): QuestionnaireDto?{
+        if (sessionId == null) {
+            throw Exception("Session ID must not be null.")
         }
-        val questionnaire = questionnaireRepository.findById(id)
-        return QuestionnaireDto(questionnaire.get().id, questionnaire.get().questions)
-    }*/
-
-   fun getQuestionnaireBySessionId(sessionId: Long): QuestionnaireDto?{
-       if (sessionId == null) {
-           throw Exception("Session ID must not be null.")
-       }
-       val questionnaire = questionnaireRepository.findBySessionId(sessionId)
-       return questionnaire?.let {
-           QuestionnaireDto(it.id, it.questions)
-       }
-   }
+        val questionnaire = questionnaireRepository.findBySessionId(sessionId)
+        return questionnaire?.let {
+            QuestionnaireDto(it.id, it.questions)
+        }
+    }
 
     fun saveQuestionnaire(questionnaireData: QuestionnaireRequestDto): QuestionnaireRequestDto {
         val questionnaire = Questionnaire()
@@ -85,8 +77,4 @@ class QuestionnaireService {
         val updatedQuestionnaire = questionnaireRepository.save(questionnaire)
         return QuestionnaireDto(updatedQuestionnaire.id, updatedQuestionnaire.questions)
     }
-
-
-
-
 }

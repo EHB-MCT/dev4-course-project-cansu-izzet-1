@@ -22,18 +22,6 @@ class QuestionnaireController {
     @Autowired
     lateinit var userService: UserService
 
-    /*@GetMapping("/{id}")
-    fun getQuestionnaireById(
-        @PathVariable id: Long,
-        @RequestHeader(HttpHeaders.AUTHORIZATION) token: String
-    ): QuestionnaireDto? {
-        if(userService.isAuthenticated(token)){
-            return questionnaireService.getQuestionnaireById(id)
-        }else {
-            throw ResponseStatusException(HttpStatus.UNAUTHORIZED, "Authentication token not present or accepted ")
-        }
-    }*/
-
     @GetMapping("/{sessionId}")
     fun getQuestionnaireBySessionId(
         @PathVariable sessionId: Long,
@@ -48,7 +36,6 @@ class QuestionnaireController {
 
     @PostMapping
     fun saveQuestionnaire(@RequestBody questionnaireData: QuestionnaireRequestDto): QuestionnaireRequestDto? {
-        println(questionnaireData)
         return questionnaireService.saveQuestionnaire(questionnaireData)
     }
 
